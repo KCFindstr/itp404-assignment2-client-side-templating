@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Assignment 2</title>
+	<link rel="stylesheet" href="main.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="handlebars-v4.1.2.js"></script>
+	<script src="main.js"></script>
+</head>
+<body>
+	<form onsubmit="return startSearch()">
+		<input type="text" id="search"/>
+		<button type="submit">Submit</button>
+	</form>
+
+	<div id="load" class="loader" style="display: none;">Loading...</div>
+	<h1 id="error" style="display: none;"></h1>
+	<table id="result" style="display: none;">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Score</th>
+				<th>Subreddit Subscribers</th>
+				<th>Comments</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	
+	<template id="thread-template">
+		{{#each threads}}
+		<tr>
+			<td>
+				<a href="{{data.url}}" target="_blank">{{data.title}}</a>
+			</td>
+			<td>
+				{{data.author}}
+			</td>
+			<td>
+				{{data.score}}
+			</td>
+			<td>
+				{{locale-number data.subreddit_subscribers}}
+			</td>
+			<td>
+				{{#if data.num_comments}}
+					{{locale-number data.num_comments}}
+				{{else}}
+					No comments
+				{{/if}}
+			</td>
+		</tr>
+		{{/each}}
+	</template>
+</body>
+</html>
